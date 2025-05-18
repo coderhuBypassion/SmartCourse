@@ -1,0 +1,114 @@
+# 📚 SmartCourse — AI-Powered Personalized Course Catalog
+
+SmartCourse is a sleek, web-based course catalog that allows users to:
+
+- Filter online courses by **topic** and **estimated time**
+- Get **AI-generated personalized learning paths** based on their goals, time availability, and deadlines
+
+> Built in 48 hours using DeepSeek Free API + modern UI practices.
+
+---
+
+## 🌟 Features
+
+### 🔎 Filterable Course Catalog
+- Filter by topic: Frontend, Backend, AI, Data Science, etc.
+- Filter by estimated time: Under 2h, 2–5h, 5–10h, 10h+
+- Clean, responsive course cards with title, duration, tags, and difficulty
+
+### 🧠 AI-Powered Personal Learning Plans
+Users enter:
+- 🎯 Goal (e.g. “Become a Frontend Developer”)
+- ⏱️ Time per day (e.g. 2 hours/day)
+- 📆 Deadline (e.g. 30 days)
+
+SmartCourse sends this to **DeepSeek**, which returns:
+- 📅 Day-wise course schedule
+- 🛠️ Prioritized path with actual catalog content
+- 💡 Motivation-driven progress plan
+
+### 🗺️ Visual Explorer (Bonus UX)
+- Time vs Topic Scatter Chart
+- Color-coded dots = courses
+- Helps users **visualize choices**
+
+### 🎯 Micro-Course Suggestions
+If a selected course is too long, suggest TL;DR-style alternatives
+
+### 👥 Peer-Picked Paths (Stretch Goal)
+- User-submitted course paths
+- Upvote/downvote best plans
+
+---
+
+## 🧠 How DeepSeek AI Works in SmartCourse
+
+We use DeepSeek's free chat completion API to generate a learning schedule. Here's how we format the prompt and make the call:
+
+### 📝 Prompt Sent to API
+
+You are an AI tutor that builds structured learning plans.
+
+Goal: Become a frontend developer
+Time available per day: 2 hours
+Deadline: 30 days
+
+Choose from the following course list:
+
+HTML Crash Course (1.5h)
+
+CSS in Depth (3h)
+
+JavaScript Basics (2h)
+
+React for Beginners (5h)
+
+Project-based Frontend Dev (10h)
+
+Return a daily schedule using these courses like:
+Day 1: HTML Crash Course (1.5h), JavaScript Basics (0.5h)
+Day 2: JavaScript Basics (1.5h), CSS in Depth (0.5h) 
+
+
+UI Inspiration (Modern, Clean, Gen-Z Friendly)
+Take visual & UX cues from top-tier modern tools:
+
+🔹 Notion — clean cards, spacing, minimal look
+
+🔸 Linear — dark/light theme toggle, keyboard-friendly
+
+🟣 Super — pastel gradients, soft visuals
+
+🟢 Scrimba — education-first UI, timeline-focused
+
+UI Design Tips:
+Use Tailwind CSS with:
+
+rounded-2xl, shadow-md, bg-opacity-*
+
+hover:scale-105 for subtle animations
+
+framer-motion for smooth fade/slide
+
+Default theme: clean white / neutral gray
+
+Use emoji tags, badge chips, and linear progress bars to make it more fun
+
+🔮 Stretch Goals (If Time Permits)
+🔗 Shareable plan URLs (/plan/:id)
+
+💾 Save plan to localStorage or Firebase
+
+🔄 "Redo Plan" button to refresh DeepSeek suggestion
+
+🧑‍🏫 Voice Assistant using Web Speech API to read learning plans
+
+🌐 Multilingual support for catalog + prompt
+
+💡 Why SmartCourse?
+While most course platforms only list content, SmartCourse goes further:
+
+It plans your learning, based on your time, your goals, and your speed.
+
+It's like having a personal study assistant, for free — in your browser.
+
