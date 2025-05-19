@@ -1,38 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
 import VisualExplorer from "@/components/visual-explorer";
 import { Course } from "@/lib/types";
 import { motion } from "framer-motion";
+import { courses } from "@/lib/course-data";
 
 interface VisualExplorerPageProps {
   setActiveTab: (tab: string) => void;
 }
 
 export default function VisualExplorerPage({ setActiveTab }: VisualExplorerPageProps) {
-  // Fetch courses from the API
-  const { data: courses = [], isLoading, error } = useQuery({
-    queryKey: ["/api/courses"],
-    staleTime: 60 * 1000, // 1 minute
-  });
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-10">
-        <h2 className="text-xl text-red-500 mb-2">Error loading course data</h2>
-        <p className="text-gray-600 dark:text-gray-400">
-          {(error as Error).message || "Something went wrong. Please try again."}
-        </p>
-      </div>
-    );
-  }
-
   return (
     <>
       <header className="mb-8">
@@ -49,7 +24,7 @@ export default function VisualExplorerPage({ setActiveTab }: VisualExplorerPageP
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <VisualExplorer courses={courses as Course[]} setActiveTab={setActiveTab} />
+        <VisualExplorer courses={courses} setActiveTab={setActiveTab} />
       </motion.div>
     </>
   );

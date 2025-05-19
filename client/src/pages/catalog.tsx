@@ -1,22 +1,16 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import CourseCard from "@/components/course-card";
 import FilterSection from "@/components/filter-section";
 import { Course } from "@/lib/types";
 import { motion } from "framer-motion";
+import { courses } from "@/lib/course-data";
 
 export default function Catalog() {
   const [topicFilter, setTopicFilter] = useState("all");
   const [timeFilter, setTimeFilter] = useState("all");
   
-  // Fetch courses from the API
-  const { data: courses = [], isLoading, error } = useQuery({
-    queryKey: ["/api/courses"],
-    staleTime: 60 * 1000, // 1 minute
-  });
-  
   // Filter courses based on selected filters
-  const filteredCourses = filterCourses(courses as Course[], topicFilter, timeFilter);
+  const filteredCourses = filterCourses(courses, topicFilter, timeFilter);
   
   // Animation variants for the list container
   const containerVariants = {
@@ -38,25 +32,6 @@ export default function Catalog() {
       transition: { type: "spring", stiffness: 300, damping: 24 }
     }
   };
-  
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-  
-  if (error) {
-    return (
-      <div className="text-center py-10">
-        <h2 className="text-xl text-red-500 mb-2">Error loading courses</h2>
-        <p className="text-gray-600 dark:text-gray-400">
-          {(error as Error).message || "Something went wrong. Please try again."}
-        </p>
-      </div>
-    );
-  }
   
   return (
     <>

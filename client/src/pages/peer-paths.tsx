@@ -1,5 +1,4 @@
 import { lazy } from "react";
-import { useQuery } from "@tanstack/react-query";
 import PeerPathCard from "@/components/peer-path-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,6 +7,7 @@ import { PeerPath } from "@/lib/types";
 import { motion } from "framer-motion";
 import { useLocation } from "wouter";
 import { useToast } from "@/hooks/use-toast";
+import { peerPaths } from "@/lib/course-data";
 
 const AiPlanner = lazy(() => import("@/pages/ai-planner"));
 
@@ -18,12 +18,6 @@ interface PeerPathsProps {
 export default function PeerPaths({ setActiveTab }: PeerPathsProps) {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
-  
-  // Fetch peer paths from the API
-  const { data: peerPaths = [], isLoading, error } = useQuery({
-    queryKey: ["/api/learning-paths/public"],
-    staleTime: 60 * 1000, // 1 minute
-  });
   
   const handleCreateNewPath = () => {
     setActiveTab("ai-planner");
@@ -57,25 +51,6 @@ export default function PeerPaths({ setActiveTab }: PeerPathsProps) {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-10">
-        <h2 className="text-xl text-red-500 mb-2">Error loading peer paths</h2>
-        <p className="text-gray-600 dark:text-gray-400">
-          {(error as Error).message || "Something went wrong. Please try again."}
-        </p>
-      </div>
-    );
-  }
-
   return (
     <>
       <header className="mb-8">
@@ -93,7 +68,7 @@ export default function PeerPaths({ setActiveTab }: PeerPathsProps) {
         initial="hidden"
         animate="visible"
       >
-        {(peerPaths as PeerPath[]).map((path) => (
+        {peerPaths.map((path) => (
           <motion.div key={path.id} variants={itemVariants}>
             <PeerPathCard path={path} setActiveTab={setActiveTab} />
           </motion.div>
